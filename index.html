@@ -293,6 +293,9 @@
                 font-size: 0.9rem;
             }
         }
+        a{
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -343,11 +346,12 @@
     </section>
 
     <section id="login" class="form-section">
-        <h2>Kirish</h2>
+       <a href="./login.html"> <h2>Kirish</h2></a>
         <form onsubmit="event.preventDefault(); alert('Tizimga kirildi!');">
             <input type="email" placeholder="Email" required>
             <input type="password" placeholder="Parol" required>
-            <button type="submit">Kirish</button>
+            <a href="./login.html">
+            <button type="submit">Kirish</button></a>
         </form>
     </section>
 

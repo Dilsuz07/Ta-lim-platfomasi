@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* AUTH SECTION */
+.auth-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2563eb, #38bdf8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 900px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(15px);
+    border-radius: 25px;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+/* LEFT */
+.auth-info {
+    flex: 1;
+    padding: 40px;
+    color: #fff;
+}
+
+.auth-info h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.auth-info p {
+    font-size: 15px;
+    margin-bottom: 25px;
+    opacity: 0.9;
+}
+
+.auth-info img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+/* RIGHT */
+.auth-forms {
+    flex: 1;
+    background: #ffffff;
+    padding: 50px 40px;
+}
+
+.auth-form {
+    display: none;
+}
+
+.auth-form.active {
+    display: block;
+}
+
+.auth-form h3 {
+    font-size: 26px;
+    margin-bottom: 25px;
+    color: #1e40af;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.auth-form button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(to right, #2563eb, #38bdf8);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.switch {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.switch span {
+    color: #2563eb;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .auth-card {
+        flex-direction: column;
+    }
+
+    .auth-info {
+        display: none;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+
+
+    <section class="auth-wrapper" id="auth">
+        <div class="auth-card">
+
+            <!-- LEFT -->
+            <div class="auth-info">
+                <h2>Xush kelibsiz 👋</h2>
+                <p>
+                    EduPlatform orqali o‘rta, oliy ta’lim hamda
+                    IT & Marketing yo‘nalishlarida bilim oling
+                </p>
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" alt="">
+            </div>
+
+            <!-- RIGHT -->
+            <div class="auth-forms">
+
+                <!-- LOGIN -->
+                <form id="loginForm" class="auth-form active">
+                    <h3>Kirish</h3>
+
+                    <input type="email" placeholder="Email manzil">
+                    <input type="password" placeholder="Parol">
+
+                    <button type="button">Kirish</button>
+
+                    <p class="switch">
+                        Akkount yo‘qmi?
+                        <span onclick="showRegister()">Ro‘yxatdan o‘tish</span>
+                    </p>
+                </form>
+
+                <!-- REGISTER -->
+                <form id="registerForm" class="auth-form">
+                    <h3>Ro‘yxatdan o‘tish</h3>
+
+                    <input type="text" placeholder="Ism">
+                    <input type="email" placeholder="Email">
+                    <input type="password" placeholder="Parol">
+
+                    <button type="button">Ro‘yxatdan o‘tish</button>
+
+                    <p class="switch">
+                        Akkount bormi?
+                        <span onclick="showLogin()">Kirish</span>
+                    </p>
+                </form>
+
+            </div>
+        </div>
+    </section>
+    <script>
+        function showRegister() {
+    document.getElementById("loginForm").classList.remove("active");
+    document.getElementById("registerForm").classList.add("active");
+}
+
+function showLogin() {
+    document.getElementById("registerForm").classList.remove("active");
+    document.getElementById("loginForm").classList.add("active");
+}
+
+    </script>
+</body>
+
+</html>
