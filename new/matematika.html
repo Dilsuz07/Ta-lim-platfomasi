@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matematika Kursi | EduPlatform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1a202c;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 2rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8rem 5% 4rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 2rem 5%;
+            background: white;
+            position: sticky;
+            top: 70px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .tab-btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            background: #f1f5f9;
+            color: #64748b;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .tab-btn.special {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+
+        .content {
+            padding: 3rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .video-thumbnail.beginner {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        .play-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+        }
+
+        .video-meta {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .badge.easy {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .test-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .question {
+            margin-bottom: 2rem;
+        }
+
+        .question h3 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .option {
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8fafc;
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #eef2ff;
+        }
+
+        .submit-btn {
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .homework-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .homework-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.3s;
+        }
+
+        .homework-card:hover {
+            transform: translateX(5px);
+        }
+
+        .homework-info h3 {
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .deadline {
+            color: #e53e3e;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .status {
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .status.pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .status.completed {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .beginner-section {
+            background: linear-gradient(135deg, #fef3c7, #fed7aa);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .beginner-section h2 {
+            color: #92400e;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .beginner-section p {
+            color: #78350f;
+            margin-bottom: 1.5rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .tab-btn {
+                padding: 0.6rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">EduPlatform</div>
+        <nav>
+            <a href="orta-talim.html">← Ortga</a>
+            <a href="#videos">Video darslar</a>
+            <a href="#tests">Testlar</a>
+            <a href="#homework">Uy vazifalari</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>📐 Matematika Kursi</h1>
+        <p>5-11 sinflar uchun to'liq interaktiv ta'lim</p>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('videos')">📹 Video Darslar</button>
+        <button class="tab-btn" onclick="showTab('tests')">📝 Testlar</button>
+        <button class="tab-btn" onclick="showTab('homework')">📚 Uy Vazifalari</button>
+        <button class="tab-btn special" onclick="showTab('beginner')">🌟 Past o'zlashtiruvchilar</button>
+    </div>
+
+    <div class="content">
+        <div id="videos" class="section active">
+            <div class="video-grid">
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>1-dars: Kasrlar bilan ishlash</h3>
+                        <div class="video-meta">15 daqiqa • 5-sinf</div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>2-dars: Tenglamalar</h3>
+                        <div class="video-meta">20 daqiqa • 6-sinf</div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>3-dars: Geometriya asoslari</h3>
+                        <div class="video-meta">25 daqiqa • 7-sinf</div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>4-dars: Kvadrat tenglamalar</h3>
+                        <div class="video-meta">18 daqiqa • 8-sinf</div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>5-dars: Funksiyalar</h3>
+                        <div class="video-meta">22 daqiqa • 9-sinf</div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>6-dars: Trigonometriya</h3>
+                        <div class="video-meta">30 daqiqa • 10-sinf</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tests" class="section">
+            <div class="test-container">
+                <h2 style="margin-bottom: 2rem; color: #2d3748;">5-sinf: Kasrlar testi</h2>
+                
+                <div class="question">
+                    <h3>1. 1/2 + 1/4 = ?</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A) 1/6</div>
+                        <div class="option" onclick="selectOption(this)">B) 3/4</div>
+                        <div class="option" onclick="selectOption(this)">C) 2/6</div>
+                        <div class="option" onclick="selectOption(this)">D) 1/3</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>2. 3/5 × 2/3 = ?</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A) 5/8</div>
+                        <div class="option" onclick="selectOption(this)">B) 2/5</div>
+                        <div class="option" onclick="selectOption(this)">C) 6/15</div>
+                        <div class="option" onclick="selectOption(this)">D) 1/2</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>3. 2/3 ni o'nli kasr ko'rinishida yozing</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A) 0.67</div>
+                        <div class="option" onclick="selectOption(this)">B) 0.66</div>
+                        <div class="option" onclick="selectOption(this)">C) 0.6</div>
+                        <div class="option" onclick="selectOption(this)">D) 0.75</div>
+                    </div>
+                </div>
+
+                <button class="submit-btn" onclick="submitTest()">Testni tugatish</button>
+            </div>
+        </div>
+
+        <div id="homework" class="section">
+            <div class="homework-list">
+                <div class="homework-card">
+                    <div class="homework-info">
+                        <h3>Uy vazifa #1: Kasrlar mashqlari</h3>
+                        <p style="color: #718096; margin: 0.5rem 0;">10 ta masala</p>
+                        <div class="deadline">⏰ Muddat: 10.01.2026</div>
+                    </div>
+                    <div class="status pending">Bajarilmagan</div>
+                </div>
+
+                <div class="homework-card">
+                    <div class="homework-info">
+                        <h3>Uy vazifa #2: Tenglamalar</h3>
+                        <p style="color: #718096; margin: 0.5rem 0;">8 ta masala</p>
+                        <div class="deadline">⏰ Muddat: 12.01.2026</div>
+                    </div>
+                    <div class="status pending">Bajarilmagan</div>
+                </div>
+
+                <div class="homework-card">
+                    <div class="homework-info">
+                        <h3>Uy vazifa #3: Geometriya</h3>
+                        <p style="color: #718096; margin: 0.5rem 0;">12 ta masala</p>
+                        <div class="deadline" style="color: #059669;">✓ Bajarilgan: 05.01.2026</div>
+                    </div>
+                    <div class="status completed">Bajarilgan</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="beginner" class="section">
+            <div class="beginner-section">
+                <h2>🌟 Past o'zlashtiruvchilar uchun maxsus dastur</h2>
+                <p>Bu bo'lim o'qishda qiynalayotgan o'quvchilar uchun oddiy va tushunarliroq materiallar bilan to'ldirilgan</p>
+            </div>
+
+            <h2 style="margin-bottom: 2rem; color: #2d3748;">Oddiy video darslar</h2>
+            <div class="video-grid">
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail beginner">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Sonlarni qo'shish va ayirish</h3>
+                        <div class="video-meta">8 daqiqa • Boshlang'ich</div>
+                        <span class="badge easy">Oson</span>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail beginner">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Ko'paytirish jadvali</h3>
+                        <div class="video-meta">10 daqiqa • Boshlang'ich</div>
+                        <span class="badge easy">Oson</span>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail beginner">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Oddiy kasrlar</h3>
+                        <div class="video-meta">12 daqiqa • Boshlang'ich</div>
+                        <span class="badge easy">Oson</span>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail beginner">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Oddiy masalalar yechish</h3>
+                        <div class="video-meta">15 daqiqa • Boshlang'ich</div>
+                        <span class="badge easy">Oson</span>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail beginner">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Shakllar va o'lchovlar</h3>
+                        <div class="video-meta">10 daqiqa • Boshlang'ich</div>
+                        <span class="badge easy">Oson</span>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail beginner">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Amaliy matematik o'yinlar</h3>
+                        <div class="video-meta">20 daqiqa • Boshlang'ich</div>
+                        <span class="badge easy">Oson</span>
+                    </div>
+                </div>
+            </div>
+
+            <h2 style="margin: 3rem 0 2rem; color: #2d3748;">Oddiy testlar</h2>
+            <div class="test-container">
+                <h3 style="margin-bottom: 2rem; color: #92400e;">Boshlang'ich darajadagi test</h3>
+                
+                <div class="question">
+                    <h3>1. 5 + 3 = ?</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A) 7</div>
+                        <div class="option" onclick="selectOption(this)">B) 8</div>
+                        <div class="option" onclick="selectOption(this)">C) 9</div>
+                        <div class="option" onclick="selectOption(this)">D) 10</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>2. 10 - 4 = ?</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A) 5</div>
+                        <div class="option" onclick="selectOption(this)">B) 6</div>
+                        <div class="option" onclick="selectOption(this)">C) 7</div>
+                        <div class="option" onclick="selectOption(this)">D) 8</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>3. 3 × 4 = ?</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A) 10</div>
+                        <div class="option" onclick="selectOption(this)">B) 11</div>
+                        <div class="option" onclick="selectOption(this)">C) 12</div>
+                        <div class="option" onclick="selectOption(this)">D) 13</div>
+                    </div>
+                </div>
+
+                <button class="submit-btn" onclick="submitTest()">Testni tugatish</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            const sections = document.querySelectorAll('.section');
+            const buttons = document.querySelectorAll('.tab-btn');
+            
+            sections.forEach(s => s.classList.remove('active'));
+            buttons.forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function selectOption(element) {
+            const options = element.parentElement.querySelectorAll('.option');
+            options.forEach(o => o.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function submitTest() {
+            const selected = document.querySelectorAll('.option.selected').length;
+            const total = document.querySelectorAll('.question').length;
+            
+            if (selected < total) {
+                alert(`Iltimos, barcha savollarga javob bering. (${selected}/${total})`);
+            } else {
+                alert('Test muvaffaqiyatli yuborildi! Natijangiz: 85%');
+            }
+        }
+    </script>
+</body>
+</html>

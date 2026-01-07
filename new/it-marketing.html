@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT va Marketing | EduPlatform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #1a202c;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8rem 5% 4rem;
+            gap: 3rem;
+        }
+
+        .hero-text {
+            flex: 1;
+            color: white;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .hero img {
+            flex: 1;
+            max-width: 450px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeInRight 1s ease;
+        }
+
+        .courses {
+            padding: 5rem 5%;
+            background: white;
+        }
+
+        .courses h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2d3748;
+        }
+
+        .course-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card h3 {
+            padding: 1.5rem 1.5rem 0.5rem;
+            font-size: 1.5rem;
+            color: #2d3748;
+        }
+
+        .card p {
+            padding: 0 1.5rem 1.5rem;
+            color: #718096;
+        }
+
+        .about {
+            padding: 5rem 5%;
+            text-align: center;
+            background: linear-gradient(135deg, #f6f8fb 0%, #ffffff 100%);
+        }
+
+        .about h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #2d3748;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            color: #4a5568;
+            line-height: 2.5;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-section {
+            padding: 5rem 5%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #2d3748;
+        }
+
+        form {
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        input {
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 6rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            nav {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">EduPlatform</div>
+        <nav>
+            <a href="./main.html">Bosh sahifa</a>
+            <a href="#directions">Yo'nalishlar</a>
+            <a href="#features">Imkoniyatlar</a>
+            <a href="#login">Kirish</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>IT va Marketing Ta'limi</h1>
+            <p>Dasturlash, dizayn va raqamli marketing bo'yicha zamonaviy kurslar</p>
+        </div>
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="IT Education">
+    </section>
+
+    <section id="directions" class="courses">
+        <h2>Asosiy yo'nalishlar</h2>
+        <div class="course-cards">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4" alt="Web dasturlash">
+                <h3>Web dasturlash</h3>
+                <p>HTML, CSS, JavaScript, React</p>
+            </div>
+            <a href="./mobil.html">
+                <div class="card">
+                    <img src="data:image/png;base64,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"
+                        alt="Mobil ilovalar">
+                    <h3>Mobil ilovalar</h3>
+                    <p>Android va iOS dasturlash</p>
+                </div>
+            </a>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786" alt="Raqamli marketing">
+                <h3>Raqamli marketing</h3>
+                <p>SMM, SEO, Target reklama</p>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d" alt="Grafik dizayn">
+                <h3>Grafik dizayn</h3>
+                <p>UI/UX va brending</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="about">
+        <h2>Talabalar uchun imkoniyatlar</h2>
+        <p>
+            ✔ Amaliy loyihalar <br>
+            ✔ Sertifikatlar <br>
+            ✔ Mentor yordami <br>
+            ✔ Portfolio yaratish <br>
+            ✔ Ishga yo'naltirish
+        </p>
+    </section>
+
+    <section id="login" class="form-section">
+        <h2>Talaba kirishi</h2>
+        <form onsubmit="event.preventDefault(); alert('Tizimga kirildi!');">
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Parol" required>
+            <button type="submit">Kirish</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2026 EduPlatform | IT & Marketing bo'limi</p>
+    </footer>
+</body>
+
+</html>

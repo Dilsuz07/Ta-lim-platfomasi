@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobil Ilovalar | EduPlatform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1a202c;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 2rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 8rem 5% 4rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .platform-selector {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 2rem 5%;
+            background: white;
+        }
+
+        .platform-btn {
+            padding: 1rem 2rem;
+            border: 2px solid #e2e8f0;
+            background: white;
+            color: #64748b;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .platform-btn.active {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border-color: #10b981;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 2rem 5%;
+            background: white;
+            position: sticky;
+            top: 70px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            background: #f1f5f9;
+            color: #64748b;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .content {
+            padding: 3rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.2);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .video-thumbnail.ios {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+
+        .play-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+        }
+
+        .video-meta {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .badge.android {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .badge.ios {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        .test-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .question {
+            margin-bottom: 2rem;
+        }
+
+        .question h3 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .option {
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option:hover {
+            border-color: #10b981;
+            background: #f8fafc;
+        }
+
+        .option.selected {
+            border-color: #10b981;
+            background: #d1fae5;
+        }
+
+        .submit-btn {
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .difficulty {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .difficulty.beginner {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .difficulty.intermediate {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .difficulty.advanced {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tool-tag {
+            padding: 0.4rem 1rem;
+            background: #f1f5f9;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .resource-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .platform-selector {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">EduPlatform</div>
+        <nav>
+            <a href="it-marketing.html">← Ortga</a>
+            <a href="#videos">Video Darslar</a>
+            <a href="#tests">Testlar</a>
+            <a href="#projects">Loyihalar</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>📱 Mobil Ilovalar Dasturlash</h1>
+        <p>Android va iOS uchun professional ilovalar yarating</p>
+    </div>
+
+    <div class="platform-selector">
+        <button class="platform-btn active" onclick="switchPlatform('android')">
+            🤖 Android
+        </button>
+        <button class="platform-btn" onclick="switchPlatform('ios')">
+            🍎 iOS
+        </button>
+        <button class="platform-btn" onclick="switchPlatform('both')">
+            🔄 Cross-Platform
+        </button>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('videos')">📹 Video Darslar</button>
+        <button class="tab-btn" onclick="showTab('tests')">📝 Testlar</button>
+        <button class="tab-btn" onclick="showTab('projects')">💡 Amaliy Loyihalar</button>
+        <button class="tab-btn" onclick="showTab('resources')">📚 Resurslar</button>
+    </div>
+
+    <div class="content">
+        <div id="videos" class="section active">
+            <h2 style="margin-bottom: 2rem; color: #2d3748;">Video Darslar</h2>
+            <div class="video-grid">
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Android Studio bilan tanishuv</h3>
+                        <div class="video-meta">25 daqiqa • Boshlang'ich</div>
+                        <span class="badge android">Android</span>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Kotlin dasturlash asoslari</h3>
+                        <div class="video-meta">35 daqiqa • Boshlang'ich</div>
+                        <span class="badge android">Android</span>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail ios">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Swift dasturlash kirish</h3>
+                        <div class="video-meta">30 daqiqa • Boshlang'ich</div>
+                        <span class="badge ios">iOS</span>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail ios">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Xcode muhiti va UI dizayn</h3>
+                        <div class="video-meta">40 daqiqa • O'rta</div>
+                        <span class="badge ios">iOS</span>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Jetpack Compose bilan UI yaratish</h3>
+                        <div class="video-meta">45 daqiqa • O'rta</div>
+                        <span class="badge android">Android</span>
+                    </div>
+                </div>
+
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Ma'lumotlar bazasi va Room</h3>
+                        <div class="video-meta">50 daqiqa • Ilg'or</div>
+                        <span class="badge android">Android</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tests" class="section">
+            <div class="test-container">
+                <h2 style="margin-bottom: 2rem; color: #2d3748;">Android Dasturlash Testi</h2>
+                
+                <div class="question">
+                    <h3>1. Android ilovalarni yaratish uchun qaysi til ishlatiladi?</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A) Python</div>
+                        <div class="option" onclick="selectOption(this)">B) Kotlin</div>
+                        <div class="option" onclick="selectOption(this)">C) Ruby</div>
+                        <div class="option" onclick="selectOption(this)">D) PHP</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>2. Android ilovalarni ishlab chiqish uchun qaysi IDE ishlatiladi?</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A) Visual Studio</div>
+                        <div class="option" onclick="selectOption(this)">B) Android Studio</div>
+                        <div class="option" onclick="selectOption(this)">C) Eclipse</div>
+                        <div class="option" onclick="selectOption(this)">D) NetBeans</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>3. iOS ilovalarni yaratish uchun qaysi dasturlash tili ishlatiladi?</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A) Java</div>
+                        <div class="option" onclick="selectOption(this)">B) C#</div>
+                        <div class="option" onclick="selectOption(this)">C) Swift</div>
+                        <div class="option" onclick="selectOption(this)">D) Go</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>4. Jetpack Compose nima uchun ishlatiladi?</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A) Backend dasturlash</div>
+                        <div class="option" onclick="selectOption(this)">B) UI yaratish</div>
+                        <div class="option" onclick="selectOption(this)">C) Database boshqarish</div>
+                        <div class="option" onclick="selectOption(this)">D) Testing</div>
+                    </div>
+                </div>
+
+                <button class="submit-btn" onclick="submitTest()">Testni tugatish</button>
+            </div>
+        </div>
+
+        <div id="projects" class="section">
+            <h2 style="margin-bottom: 2rem; color: #2d3748;">Amaliy Loyihalar</h2>
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>To-Do List ilovasi</h3>
+                    <span class="difficulty beginner">Boshlang'ich</span>
+                </div>
+                <p style="color: #718096; margin-bottom: 1rem;">
+                    Oddiy vazifalar ro'yxati ilovasi yarating. CRUD operatsiyalari va ma'lumotlar bazasi bilan ishlashni o'rganing.
+                </p>
+                <div class="tools-list">
+                    <span class="tool-tag">Kotlin</span>
+                    <span class="tool-tag">Room Database</span>
+                    <span class="tool-tag">RecyclerView</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Ob-havo ilovasi</h3>
+                    <span class="difficulty intermediate">O'rta</span>
+                </div>
+                <p style="color: #718096; margin-bottom: 1rem;">
+                    API dan ma'lumotlar olish va ko'rsatish. Retrofit va JSON bilan ishlashni o'rganing.
+                </p>
+                <div class="tools-list">
+                    <span class="tool-tag">Kotlin/Swift</span>
+                    <span class="tool-tag">Retrofit/Alamofire</span>
+                    <span class="tool-tag">JSON</span>
+                    <span class="tool-tag">API</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Chat ilovasi</h3>
+                    <span class="difficulty advanced">Ilg'or</span>
+                </div>
+                <p style="color: #718096; margin-bottom: 1rem;">
+                    Real-time xabar almashinuv ilovasi. Firebase va push notifications bilan ishlash.
+                </p>
+                <div class="tools-list">
+                    <span class="tool-tag">Kotlin/Swift</span>
+                    <span class="tool-tag">Firebase</span>
+                    <span class="tool-tag">Push Notifications</span>
+                    <span class="tool-tag">Real-time DB</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>E-commerce ilovasi</h3>
+                    <span class="difficulty advanced">Ilg'or</span>
+                </div>
+                <p style="color: #718096; margin-bottom: 1rem;">
+                    To'liq onlayn do'kon ilovasi. To'lov tizimlari va mahsulot katalogi bilan ishlash.
+                </p>
+                <div class="tools-list">
+                    <span class="tool-tag">Kotlin/Swift</span>
+                    <span class="tool-tag">Payment API</span>
+                    <span class="tool-tag">REST API</span>
+                    <span class="tool-tag">Authentication</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="resources" class="section">
+            <h2 style="margin-bottom: 2rem; color: #2d3748;">Foydali Resurslar</h2>
+            <div class="resources-grid">
+                <div class="resource-card" onclick="alert('Resurs ochilmoqda...')">
+                    <div class="resource-icon">📖</div>
+                    <h3 style="margin-bottom: 0.5rem;">Android Documentation</h3>
+                    <p style="color: #718096; font-size: 0.9rem;">Rasmiy Android hujjatlari</p>
+                </div>
+
+                <div class="resource-card" onclick="alert('Resurs ochilmoqda...')">
+                    <div class="resource-icon">📱</div>
+                    <h3 style="margin-bottom: 0.5rem;">Apple Developer</h3>
+                    <p style="color: #718096; font-size: 0.9rem;">iOS dasturlash resurslari</p>
+                </div>
+
+                <div class="resource-card" onclick="alert('Resurs ochilmoqda...')">
+                    <div class="resource-icon">💻</div>
+                    <h3 style="margin-bottom: 0.5rem;">GitHub Examples</h3>
+                    <p style="color: #718096; font-size: 0.9rem;">Namuna loyihalar</p>
+                </div>
+
+                <div class="resource-card" onclick="alert('Resurs ochilmoqda...')">
+                    <div class="resource-icon">🎓</div>
+                    <h3 style="margin-bottom: 0.5rem;">Video Tutorials</h3>
+                    <p style="color: #718096; font-size: 0.9rem;">Bepul video darslar</p>
+                </div>
+
+                <div class="resource-card" onclick="alert('Resurs ochilmoqda...')">
+                    <div class="resource-icon">🔧</div>
+                    <h3 style="margin-bottom: 0.5rem;">Development Tools</h3>
+                    <p style="color: #718096; font-size: 0.9rem;">Foydali vositalar</p>
+                </div>
+
+                <div class="resource-card" onclick="alert('Resurs ochilmoqda...')">
+                    <div class="resource-icon">👥</div>
+                    <h3 style="margin-bottom: 0.5rem;">Community Forum</h3>
+                    <p style="color: #718096; font-size: 0.9rem;">Hamjamiyat yordam</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            const sections = document.querySelectorAll('.section');
+            const buttons = document.querySelectorAll('.tab-btn');
+            
+            sections.forEach(s => s.classList.remove('active'));
+            buttons.forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function switchPlatform(platform) {
+            const buttons = document.querySelectorAll('.platform-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            alert(`${platform.toUpperCase()} platformasi tanlandi`);
+        }
+
+        function selectOption(element) {
+            const options = element.parentElement.querySelectorAll('.option');
+            options.forEach(o => o.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function submitTest() {
+            const selected = document.querySelectorAll('.option.selected').length;
+            const total = document.querySelectorAll('.question').length;
+            
+            if (selected < total) {
+                alert(`Iltimos, barcha savollarga javob bering. (${selected}/${total})`);
+            } else {
+                alert('Test muvaffaqiyatli yuborildi! Natijangiz: 90%');
+            }
+        }
+    </script>
+</body>
+</html>

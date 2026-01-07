@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axborot Texnologiyalari | EduPlatform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1a202c;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 2rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            color: white;
+            padding: 8rem 5% 4rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 2rem 5%;
+            background: white;
+            position: sticky;
+            top: 70px;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            background: #f1f5f9;
+            color: #64748b;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+            color: white;
+        }
+
+        .content {
+            padding: 3rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(30, 58, 138, 0.2);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .play-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+        }
+
+        .video-meta {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .test-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+
+        .question {
+            margin-bottom: 2rem;
+        }
+
+        .question h3 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .option {
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option:hover {
+            border-color: #1e40af;
+            background: #f8fafc;
+        }
+
+        .option.selected {
+            border-color: #1e40af;
+            background: #dbeafe;
+        }
+
+        .submit-btn {
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(30, 58, 138, 0.4);
+        }
+
+        .seminar-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .seminar-info h3 {
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .seminar-time {
+            color: #1e40af;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .join-btn {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .join-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .credit-system {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .subject-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .subject-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: 10px;
+            border-left: 4px solid #1e40af;
+        }
+
+        .credit-badge {
+            padding: 0.5rem 1rem;
+            background: #dbeafe;
+            color: #1e40af;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .homework-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .homework-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .homework-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .deadline {
+            color: #e53e3e;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .upload-btn {
+            padding: 0.6rem 1.5rem;
+            background: #1e40af;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .rating-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+
+        .leaderboard {
+            margin-top: 2rem;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .rank {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .student-info {
+            flex: 1;
+        }
+
+        .score {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1e40af;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .seminar-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">EduPlatform</div>
+        <nav>
+            <a href="oliy-talim.html">← Ortga</a>
+            <a href="#videos">Video ma'ruzalar</a>
+            <a href="#tests">Testlar</a>
+            <a href="#rating">Reyting</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>💻 Axborot Texnologiyalari</h1>
+        <p>Dasturlash va Sun'iy Intellekt yo'nalishi</p>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('videos')">📹 Video Ma'ruzalar</button>
+        <button class="tab-btn" onclick="showTab('tests')">📝 Testlar</button>
+        <button class="tab-btn" onclick="showTab('seminars')">🎯 Onlayn Seminarlar</button>
+        <button class="tab-btn" onclick="showTab('credits')">📊 Kredit-Modul</button>
+        <button class="tab-btn" onclick="showTab('homework')">📚 Mustaqil Ishlar</button>
+        <button class="tab-btn" onclick="showTab('rating')">🏆 Reyting</button>
+    </div>
+
+    <div class="content">
+        <div id="videos" class="section active">
+            <h2 style="margin-bottom: 2rem; color: #2d3748;">Video Ma'ruzalar</h2>
+            <div class="video-grid">
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Python dasturlash asoslari</h3>
+                        <div class="video-meta">45 daqiqa • Prof. Azimov A.</div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Ma'lumotlar strukturasi</h3>
+                        <div class="video-meta">50 daqiqa • Prof. Karimov B.</div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Sun'iy intellekt kirish</h3>
+                        <div class="video-meta">60 daqiqa • Dr. Rahimova S.</div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Machine Learning asoslari</h3>
+                        <div class="video-meta">55 daqiqa • Prof. Tursunov D.</div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Web dasturlash React</h3>
+                        <div class="video-meta">40 daqiqa • Dr. Aliyev F.</div>
+                    </div>
+                </div>
+                <div class="video-card" onclick="alert('Video ochilmoqda...')">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Neural Networks</h3>
+                        <div class="video-meta">65 daqiqa • Prof. Yusupov G.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tests" class="section">
+            <div class="test-container">
+                <h2 style="margin-bottom: 2rem; color: #2d3748;">Python Dasturlash Testi</h2>
+                
+                <div class="question">
+                    <h3>1. Python da ro'yxat yaratish qanday?</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A) array = (1, 2, 3)</div>
+                        <div class="option" onclick="selectOption(this)">B) array = [1, 2, 3]</div>
+                        <div class="option" onclick="selectOption(this)">C) array = {1, 2, 3}</div>
+                        <div class="option" onclick="selectOption(this)">D) array = &lt;1, 2, 3&gt;</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>2. Sun'iy intellektda "supervised learning" nima?</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A) Nazorat ostida o'rganish</div>
+                        <div class="option" onclick="selectOption(this)">B) Mustaqil o'rganish</div>
+                        <div class="option" onclick="selectOption(this)">C) Murakkab o'rganish</div>
+                        <div class="option" onclick="selectOption(this)">D) Oddiy o'rganish</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <h3>3. Neural network nechta qatlamdan tashkil topgan?</h3>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this)">A) 1 qatlam</div>
+                        <div class="option" onclick="selectOption(this)">B) 2 qatlam</div>
+                        <div class="option" onclick="selectOption(this)">C) 3 va undan ko'p qatlam</div>
+                        <div class="option" onclick="selectOption(this)">D) Qatlamlar yo'q</div>
+                    </div>
+                </div>
+
+                <button class="submit-btn" onclick="submitTest()">Testni tugatish</button>
+            </div>
+        </div>
+
+        <div id="seminars" class="section">
+            <h2 style="margin-bottom: 2rem; color: #2d3748;">Onlayn Seminarlar</h2>
+            
+            <div class="seminar-card">
+                <div class="seminar-info">
+                    <h3>Deep Learning va Neural Networks</h3>
+                    <p style="color: #718096;">Murabbiy: Prof. Karimov Bobur</p>
+                    <div class="seminar-time">🕐 Bugun 14:00 da</div>
+                </div>
+                <button class="join-btn" onclick="alert('Seminarga ulanish...')">Ulanish</button>
+            </div>
+
+            <div class="seminar-card">
+                <div class="seminar-info">
+                    <h3>Python Advanced: OOP va Design Patterns</h3>
+                    <p style="color: #718096;">Murabbiy: Dr. Rahimova Saida</p>
+                    <div class="seminar-time">🕐 Ertaga 10:00 da</div>
+                </div>
+                <button class="join-btn" onclick="alert('Seminarga ulanish...')">Ulanish</button>
+            </div>
+
+            <div class="seminar-card">
+                <div class="seminar-info">
+                    <h3>AI in Real World Applications</h3>
+                    <p style="color: #718096;">Murabbiy: Prof. Azimov Alisher</p>
+                    <div class="seminar-time">🕐 15.01.2026 da 16:00</div>
+                </div>
+                <button class="join-btn" onclick="alert('Seminarga ulanish...')">Ulanish</button>
+            </div>
+        </div>
+
+        <div id="credits" class="section">
+            <div class="credit-system">
+                <h2 style="margin-bottom: 1rem; color: #2d3748;">Kredit-Modul Tizimi</h2>
+                <p style="color: #718096; margin-bottom: 2rem;">Semestr uchun minimal kredit: 18 | Maksimal: 24</p>
+                
+                <div class="subject-list">
+                    <div class="subject-item">
+                        <div>
+                            <h3 style="margin-bottom: 0.3rem;">Python Dasturlash</h3>
+                            <p style="color: #718096; font-size: 0.9rem;">Majburiy fan</p>
+                        </div>
+                        <span class="credit-badge">5 kredit</span>
+                    </div>
+                    <div class="subject-item">
+                        <div>
+                            <h3 style="margin-bottom: 0.3rem;">Ma'lumotlar Strukturasi</h3>
+                            <p style="color: #718096; font-size: 0.9rem;">Majburiy fan</p>
+                        </div>
+                        <span class="credit-badge">4 kredit</span>
+                    </div>
+                    <div class="subject-item">
+                        <div>
+                            <h3 style="margin-bottom: 0.3rem;">Sun'iy Intellekt</h3>
+                            <p style="color: #718096; font-size: 0.9rem;">Asosiy fan</p>
+                        </div>
+                        <span class="credit-badge">6 kredit</span>
+                    </div>
+                    <div class="subject-item">
+                        <div>
+                            <h3 style="margin-bottom: 0.3rem;">Web Dasturlash</h3>
+                            <p style="color: #718096; font-size: 0.9rem;">Tanlov fan</p>
+                        </div>
+                        <span class="credit-badge">4 kredit</span>
+                    </div>
+                    <div class="subject-item">
+                        <div>
+                            <h3 style="margin-bottom: 0.3rem;">Database Management</h3>
+                            <p style="color: #718096; font-size: 0.9rem;">Tanlov fan</p>
+                        </div>
+                        <span class="credit-badge">3 kredit</span>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; padding: 1.5rem; background: #dbeafe; border-radius: 10px;">
+                    <h3 style="color: #1e3a8a;">Jami: 22 kredit</h3>
+                    <p style="color: #1e40af; margin-top: 0.5rem;">✓ Minimal talabga javob beradi</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="homework" class="section">
+            <h2 style="margin-bottom: 2rem; color: #2d3748;">Mustaqil Ishlar</h2>
+            <div class="homework-list">
+                <div class="homework-card">
+                    <div class="homework-header">
+                        <div>
+                            <h3>Loyiha: Chat Bot yaratish (Python)</h3>
+                            <p style="color: #718096; margin-top: 0.5rem;">Sun'iy Intellekt kursi</p>
+                        </div>
+                        <button class="upload-btn" onclick="alert('Fayl yuklash...')">Yuklash</button>
+                    </div>
+                    <div class="deadline">⏰ Muddat: 15.01.2026</div>
+                </div>
+
+                <div class="homework-card">
+                    <div class="homework-header">
+                        <div>
+                            <h3>Ma'lumotlar bazasi dizayni</h3>
+                            <p style="color: #718096; margin-top: 0.5rem;">Database Management</p>
+                        </div>
+                        <button class="upload-btn" onclick="alert('Fayl yuklash...')">Yuklash</button>
+                    </div>
+                    <div class="deadline">⏰ Muddat: 18.01.2026</div>
+                </div>
+
+                <div class="homework-card">
+                    <div class="homework-header">
+                        <div>
+                            <h3>React web-ilovasi yaratish</h3>
+                            <p style="color: #718096; margin-top: 0.5rem;">Web Dasturlash</p>
+                        </div>
+                        <button class="upload-btn" onclick="alert('Fayl yuklash...')">Yuklash</button>
+                    </div>
+                    <div class="deadline">⏰ Muddat: 20.01.2026</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="rating" class="section">
+            <div class="rating-container">
+                <h2 style="margin-bottom: 2rem; color: #2d3748;">Reyting va Baholash</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">8.5</div>
+                        <div class="stat-label">O'rtacha Ball</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">O'rin (Guruhda)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">85%</div>
+                        <div class="stat-label">Davomat</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">22</div>
+                        <div class="stat-label">Kredit</div>
+                    </div>
+                </div>
+
+                <div class="leaderboard">
+                    <h3 style="margin-bottom: 1.5rem; color: #2d3748;">🏆 Guruh Reytingi (Top 10)</h3>
+                    
+                    <div class="leaderboard-item">
+                        <div class="rank">1</div>
+                        <div class="student-info">
+                            <strong>Aliyev Jamshid</strong>
+                            <p style="color: #718096; font-size: 0.9rem;">IT-301 guruh</p>
+                        </div>
+                        <div class="score">9.8</div>
+                    </div>
+
+                    <div class="leaderboard-item">
+                        <div class="rank">2</div>
+                        <div class="student-info">
+                            <strong>Karimova Zilola</strong>
+                            <p style="color: #718096; font-size: 0.9rem;">IT-301 guruh</p>
+                        </div>
+                        <div class="score">9.5</div>
+                    </div>
+
+                    <div class="leaderboard-item">
+                        <div class="rank">3</div>
+                        <div class="student-info">
+                            <strong>Rahimov Sardor</strong>
+                            <p style="color: #718096; font-size: 0.9rem;">IT-301 guruh</p>
+                        </div>
+                        <div class="score">9.3</div>
+                    </div>
+
+                    <div class="leaderboard-item">
+                        <div class="rank">4</div>
+                        <div class="student-info">
+                            <strong>Yusupova Malika</strong>
+                            <p style="color: #718096; font-size: 0.9rem;">IT-301 guruh</p>
+                        </div>
+                        <div class="score">9.1</div>
+                    </div>
+
+                    <div class="leaderboard-item">
+                        <div class="rank">5</div>
+                        <div class="student-info">
+                            <strong>Tursunov Aziz</strong>
+                            <p style="color: #718096; font-size: 0.9rem;">IT-301 guruh</p>
+                        </div>
+                        <div class="score">8.9</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            const sections = document.querySelectorAll('.section');
+            const buttons = document.querySelectorAll('.tab-btn');
+            
+            sections.forEach(s => s.classList.remove('active'));
+            buttons.forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function selectOption(element) {
+            const options = element.parentElement.querySelectorAll('.option');
+            options.forEach(o => o.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        </script>
+     
